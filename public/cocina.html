@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survival</title>
+    <link rel="stylesheet" href="index4.css">
+</head>
+<body>
+    <div class="content-container">
+        <header>
+            <h1>Survival Horror</h1>
+        </header>
+        <section class="content-section">
+            <article>
+                <img src="https://i.pinimg.com/564x/47/40/60/474060425ce3eb5b3e25154ccc0f1b8b.jpg" alt="Ilustración Detalle" class="profile-image" onclick="window.location.href='mikami.html'">
+                <h4>Los mejores juegos de supervivencia de terror </h4>
+                <div class="gallery">
+                    <img src="https://cdn1.epicgames.com/offer/87b7846d2eba4bc49eead0854323aba8/EGS_DyingLight2StayHumanReloadedEdition_Techland_S2_1200x1600-76cef594ff94fbac64a8af1ebe4c7590" alt="Ilustración Detalle">
+                    <img src="https://image.api.playstation.com/vulcan/ap/rnd/202203/0501/tc67Gmu0MIEY7WMuBi3R7w8p.jpg" alt="Ilustración Detalle">
+                    <img src="https://image.api.playstation.com/vulcan/ap/rnd/202207/0706/D8YACd9U8RAcdtOVpXeXDpzg.png" alt="Ilustración Detalle">
+                </div>
+                <div class="gallery1">
+                    <img src="https://i.pinimg.com/564x/47/40/60/474060425ce3eb5b3e25154ccc0f1b8b.jpg" alt="Ilustración Detalle">
+                       <p class="text-content">Generalmente, los survival horror 
+                        utilizan distintos elementos para crear una atmósfera de terror psicológico en el jugador, 
+                        intentando infundirle terror. Tales elementos pueden ser: escenarios muy trabajados y concretos, una iluminación tenue, 
+                        opaca y descolorida que provoca una mezcla de terror y angustia y música, por lo general instrumental y con influencia clásica, 
+                        que logra en el jugador un efecto de concentración, pero que 
+                        se ve alterado por los efectos de sonido repentinos y vehementes que pretenden asustar.
+                        </p><br> 
+                <div class="gallery1">
+                    <img src="https://m.media-amazon.com/images/I/91ipd2iixqL._AC_UF1000,1000_QL80_.jpg" alt="Ilustración Detalle">
+                    <img src="https://sm.ign.com/t/ign_es/cover/r/resident-e/resident-evil-4-remake_z3ku.1200.jpg" alt="Ilustración Detalle">
+                    <img src="https://cdn.cdkeys.com/500x706/media/catalog/product/t/h/the_evil_within_2_cov_er.jpg" alt="Ilustración Detalle">
+                </div>
+            </article>
+            <div id="root"></div> 
+            <div class="comments-container">
+                <h2>Comentarios</h2>
+                <form id="commentForm" class="commentForm">
+                    <textarea id="commentInput" placeholder="Escribe un comentario" class="commentInput"></textarea>
+                    <button type="submit" class="commentButton">Enviar Comentario</button>
+                    <ul id="comments-list">
+                    </ul>
+                </form> 
+            </div>
+        </section>
+    </div>
+    <script>
+        // Función para manejar el envío del formulario de comentarios
+        function handleCommentSubmit(event) {
+            event.preventDefault(); // Evita la recarga de la página por defecto
+            let commentText = document.getElementById('commentInput').value;
+            if (commentText.trim() !== '') {
+                // Envía el comentario al componente React
+                window.postMessage({ type: 'addComment', comment: commentText });
+                document.getElementById('commentInput').value = ''; // Limpia el campo de comentario
+            }
+        }
+
+        // Espera a que el DOM esté completamente cargado
+        document.addEventListener('DOMContentLoaded', function () {
+            // Captura el evento de envío del formulario y llama a la función handleCommentSubmit
+            document.getElementById('commentForm').addEventListener('submit', handleCommentSubmit);
+
+            // Escucha los mensajes posteados desde el HTML
+            window.addEventListener('message', function(event) {
+                const { type, comment } = event.data;
+                if (type === 'addComment' && typeof comment === 'string') {
+                    // Agrega el comentario recibido
+                    window.addComment(comment);
+                }
+            });
+        });
+
+        // Función para agregar un comentario al DOM
+        window.addComment = function(commentText) {
+            const commentList = document.getElementById('comments-list');
+            const newComment = document.createElement('li');
+            newComment.className = 'comment';
+            newComment.innerHTML = `
+                <p>${commentText}</p>
+                <button onclick="editComment(this)" class="edit-button">Editar</button>
+                <button onclick="this.parentElement.remove()" class="delete-button">Eliminar</button>
+            `;
+            commentList.appendChild(newComment);
+            commentList.scrollTop = commentList.scrollHeight; // Desplaza el contenedor hacia abajo
+        };
+
+        // Función para editar un comentario
+        window.editComment = function(button) {
+            const commentElement = button.parentElement;
+            const commentTextElement = commentElement.querySelector('p');
+            const currentText = commentTextElement.innerText;
+
+            const newText = prompt('Edita tu comentario:', currentText);
+            if (newText !== null && newText.trim() !== '') {
+                commentTextElement.innerText = newText;
+            }
+        };
+    </script>
+        </section>
+    </div>
+</body>
+</html>

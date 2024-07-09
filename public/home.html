@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Personal</title>
+    <link rel="stylesheet" href="index2.css">
+</head>
+<body>
+    <div class="blog-container">
+        <header>
+            <h1>Blog Personal</h1>
+            <div class="search-bar">
+                <input type="text" placeholder="Buscar">
+                <button>Buscar</button>
+            </div>
+        </header>
+        <section class="ilustracion-section">
+            <h2>Curiosidades</h2>
+            <article onclick="navigateTo('ilustracion.html')">
+                <h3>Dibujos Digitales</h3>
+                <img src="https://media.illustrationx.com/images/artist/CarolinaRodriguezFuenmayor/119941/full/500/woman-with-shadow.jpg" alt="Ilustración 01">
+            </article>
+            <article onclick="navigateTo('cocina.html')">
+                <h3>Cocina</h3>
+                <img src="https://i.pinimg.com/736x/4c/35/3b/4c353bb13f2a34a6d20552899744a419.jpg" alt="Cocina 01">
+            </article>
+        </section>
+    </div>
+    <script>
+        function navigateTo(page) {
+            window.location.href = page;
+        }
+    </script>
+    
+</body>
+</html>

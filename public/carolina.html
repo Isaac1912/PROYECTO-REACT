@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arte</title>
+    <link rel="stylesheet" href="index3.css">
+</head>
+<body>
+    <div class="content-container">
+        <header>
+            <h1>Arte Digital</h1>
+        </header>
+        <div class="gallery">
+            <img src="https://i.pinimg.com/564x/82/ee/bb/82eebbf2ebb283a3f1bccf8c1371ff53.jpg" alt="Ilustración Detalle">
+            <img src="https://i.pinimg.com/564x/be/46/f5/be46f5f4bb88fb120e3c4cdd3fb0ea02.jpg" alt="Ilustración Detalle">
+            <img src="https://i.pinimg.com/564x/fb/0c/8f/fb0c8f443d8aa69a811018576690bdb5.jpg" alt="Ilustración Detalle">
+        </div>
+                </article>
+            </article>
+        </section>
+    </div>
+    <div id="root"></div> 
+            <div class="comments-container">
+                <h2>Comentarios</h2>
+                
+                <form id="commentForm" class="commentForm">
+                    <textarea id="commentInput" placeholder="Escribe un comentario" class="commentInput"></textarea>
+                    <button type="submit" class="commentButton">Enviar Comentario</button>
+                    <ul id="comments-list">
+                    </ul>
+                </form> 
+            </div>
+        </section>
+    </div>
+    <script>
+        // Función para manejar el envío del formulario de comentarios
+        function handleCommentSubmit(event) {
+            event.preventDefault(); // Evita la recarga de la página
+            var commentText = document.getElementById('commentInput').value;
+            if (commentText.trim() !== '') {
+                // Envía el comentario al  React
+                window.postMessage({ type: 'addComment', comment: commentText });
+                document.getElementById('commentInput').value = ''; // Limpia el comentario
+            }
+        }
+
+        // Espera a que el DOM esté cargado
+        document.addEventListener('DOMContentLoaded', function () {
+            // Captura el evento de envío del formulario y llama a la función handleCommentSubmit
+            document.getElementById('commentForm').addEventListener('submit', handleCommentSubmit);
+
+            // Escucha los mensajes posteados desde el HTML
+            window.addEventListener('message', function(event) {
+                const { type, comment } = event.data;
+                if (type === 'addComment' && typeof comment === 'string') {
+                    // Agrega el comentario recibido
+                    window.addComment(comment);
+                }
+            });
+        });
+
+        // Función para agregar un comentario al DOM
+        window.addComment = function(commentText) {
+            const commentList = document.getElementById('comments-list');
+            const newComment = document.createElement('li');
+            newComment.className = 'comment';
+            newComment.innerHTML = `
+                <p>${commentText}</p>
+                <button onclick="editComment(this)" class="edit-button">Editar</button>
+                <button onclick="this.parentElement.remove()" class="delete-button">Eliminar</button>
+            `;
+            commentList.appendChild(newComment);
+            commentList.scrollTop = commentList.scrollHeight; // Desplaza el contenedor hacia abajo
+        };
+
+        // Función para editar un comentario
+        window.editComment = function(button) {
+            const commentElement = button.parentElement;
+            const commentTextElement = commentElement.querySelector('p');
+            const currentText = commentTextElement.innerText;
+
+            const newText = prompt('Edita tu comentario:', currentText);
+            if (newText !== null && newText.trim() !== '') {
+                commentTextElement.innerText = newText;
+            }
+        };
+    </script>
+</body>
+</html>

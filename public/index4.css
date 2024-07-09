@@ -1,0 +1,146 @@
+body {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #000000;
+}
+
+.content-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffffc6;
+}
+
+header h1 {
+    text-align: center;
+    font-size: 2em;
+    padding-bottom: 5px;
+    color: rgb(0, 0, 0);
+}
+
+p {
+    color: rgb(0, 0, 0);
+}
+
+.profile-image {
+    display: block;
+    margin: 0 auto;
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+}
+.text-content {
+  max-width: 400px;
+  font-size: 16px;
+  line-height: 1.5;
+  color: rgb(0, 0, 0);
+}
+.content-section {
+    padding: 20px;
+}
+
+.article {
+    text-align: center;
+}
+
+.gallery {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    transition: transform 0.30s ease;
+}
+
+.gallery:hover {
+    transform: scale(1.10); 
+}
+
+.gallery img {
+    width: 250px;
+    height: auto;
+    border-radius: 10px;
+}
+
+.gallery, .gallery1 {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    transition: transform 0.30s ease;
+}
+
+.gallery:hover, .gallery1:hover {
+    transform: scale(1.10); 
+}
+
+.gallery img, .gallery1 img {
+    width: 30%;
+    height: auto;
+    display: block;
+    margin-bottom: 20px;
+    border-radius: 10px;
+}
+.comments-container {
+    padding: 20px;
+  }
+  
+  .comments-container h2 {
+    margin-top: 0;
+    color: rgb(0, 0, 0);
+  }
+  
+  .commentForm {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .commentInput {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .commentButton {
+    padding: 10px 20px;
+    background-color: blue;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 30%;
+  }
+  
+  .comments-list {
+    margin-top: 20px;
+    list-style: none;
+    padding: 0;
+  }
+  
+  .commentInput {
+    border-bottom: 1px solid #ccc;
+    padding: 20px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .comment p {
+    margin: 0;
+    flex: 1;
+  }
+  
+  button {
+    margin-left: 10px;
+    padding: 5px 10px;
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .comment button:first-of-type {
+    background-color: green;
+  }
+  

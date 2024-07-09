@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ilustración</title>
+    <link rel="stylesheet" href="index3.css">
+</head>
+<body>
+    <div class="content-container">
+        <header>
+            <h1>El Arte Digital</h1>
+        </header>
+        <section class="content-section">
+            <article>
+                <img src="https://i.pinimg.com/736x/e1/05/d0/e105d00cbdc095c3f201faaebeed5316.jpg" alt="Ilustración Detalle" class="profile-image" onclick="window.location.href='carolina.html'">
+                <header>
+                    <h1>¿Qué es el arte Digital?</h1>
+                </header>
+                <section class="content-section">
+                    <article>
+                     <p>El arte digital ha revolucionado el mundo creativo, proporcionando a los artistas herramientas ilimitadas para expresar su imaginación. Desde ilustraciones detalladas hasta animaciones complejas, el arte digital permite explorar nuevos horizontes sin las restricciones de los medios tradicionales. Esta forma de arte no solo democratiza la creación, sino que también abre un 
+                        sinfín de posibilidades en el diseño gráfico, la animación y los
+                         efectos visuales. <br> </p>
+        
+                         <p>Con la proliferación de tabletas gráficas y software sofisticado, el arte digital se ha convertido en 
+                         una plataforma dinámica y accesible para artistas de todas las disciplinas.</p><br>
+            </article>
+            <div class="gallery1">
+                <img src="https://i.pinimg.com/564x/e6/3c/aa/e63caaa0edfb17e95bf15fd69e02a7fc.jpg" alt="Ilustración Detalle">
+           <p class="text-content">El arte digital tiene muchas ventajas y 
+            desventajas en su industria te presentare algunas de ellas.
+            Las herramientas digitales permiten realizar modificaciones y 
+            ajustes con facilidad, sin dañar el trabajo original.
+             Esto facilita la experimentación y la corrección de errores.
+             El arte digital no requiere materiales físicos como papel, pinturas o pinceles, 
+             lo cual reduce el desperdicio y el impacto ambiental.
+             Algunos argumentan que la facilidad de realizar ajustes y la disponibilidad de herramientas avanzadas 
+            puede limitar el desarrollo de habilidades fundamentales del dibujo y la pintura manual.
+            </p><br>
+            <p>El arte digital ofrece numerosas ventajas en términos de versatilidad, eficiencia y accesibilidad, 
+            pero también presenta desafíos relacionados con la tecnología y la percepción del valor del arte. 
+            A medida que la tecnología continúa evolucionando, el arte digital 
+            seguirá transformando la manera en que los artistas crean y comparten su trabajo.
+        </p>
+            </div>
+            <div class="gallery">
+                <img src="https://i.pinimg.com/736x/30/10/5b/30105b619859e369c6d6593f4f6d34b5.jpg" alt="Ilustración Detalle">
+                <img src="https://i.pinimg.com/736x/4a/e9/b9/4ae9b9cd9d45c6f523c0e557d36d4fb1.jpg" alt="Ilustración Detalle">
+                <img src="https://i.pinimg.com/564x/fb/0c/8f/fb0c8f443d8aa69a811018576690bdb5.jpg" alt="Ilustración Detalle">
+            </div>
+            <div id="root"></div> 
+            <div class="comments-container">
+                <h2>Comentarios</h2>
+                
+                <form id="commentForm" class="commentForm">
+                    <textarea id="commentInput" placeholder="Escribe un comentario" class="commentInput"></textarea>
+                    <button type="submit" class="commentButton">Enviar Comentario</button>
+                    <ul id="comments-list">
+                    </ul>
+                </form> 
+            </div>
+        </section>
+    </div>
+    <script>
+        // Función para manejar el envío del formulario de comentarios
+        function handleCommentSubmit(event) {
+            event.preventDefault(); // Evita la recarga de la página
+            let commentText = document.getElementById('commentInput').value;
+            if (commentText.trim() !== '') {
+                // Envía el comentario al  React
+                window.postMessage({ type: 'addComment', comment: commentText });
+                document.getElementById('commentInput').value = ''; // Limpia el comentario
+            }
+        }
+
+        // Espera a que el DOM esté cargado
+        document.addEventListener('DOMContentLoaded', function () {
+            // Captura el evento de envío del formulario y llama a la función handleCommentSubmit
+            document.getElementById('commentForm').addEventListener('submit', handleCommentSubmit);
+
+            // Escucha los mensajes posteados desde el HTML
+            window.addEventListener('message', function(event) {
+                const { type, comment } = event.data;
+                if (type === 'addComment' && typeof comment === 'string') {
+                    // Agrega el comentario recibido
+                    window.addComment(comment);
+                }
+            });
+        });
+
+        // Función para agregar un comentario al DOM
+        window.addComment = function(commentText) {
+            const commentList = document.getElementById('comments-list');
+            const newComment = document.createElement('li');
+            newComment.className = 'comment';
+            newComment.innerHTML = `
+                <p>${commentText}</p>
+                <button onclick="editComment(this)" class="edit-button">Editar</button>
+                <button onclick="this.parentElement.remove()" class="delete-button">Eliminar</button>
+            `;
+            commentList.appendChild(newComment);
+            commentList.scrollTop = commentList.scrollHeight; // Desplaza el contenedor hacia abajo
+        };
+
+        // Función para editar un comentario
+        window.editComment = function(button) {
+            const commentElement = button.parentElement;
+            const commentTextElement = commentElement.querySelector('p');
+            const currentText = commentTextElement.innerText;
+
+            const newText = prompt('Edita tu comentario:', currentText);
+            if (newText !== null && newText.trim() !== '') {
+                commentTextElement.innerText = newText;
+            }
+        };
+    </script>
+</body>
+</html>
+
